@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+    <form>
+        <input type="text" name="login">
+        <input type="password" name="password">
+        <input type="button" onclick="sendPost()">
+    </form>
+    <div>
+        <input id="login" type="text" name="login">
+        <input id="pass" type="password" name="password">
+        <input type="button" onclick="sendPost()">
+    </div>
+    <div id="res"></div>
+
+</html>
+
+<script>
+    function sendPost(){
+        var data = {
+            login: document.getElementById("login").value,
+            pass: document.getElementById("pass").value
+        }
+        var req = new XMLHttpRequest();
+        req.open("POST", "/api/v1/login");
+        req.onload = function(){
+            if(this.status < 400) {
+                document.getElementById("res").innerText = this.response;
+            } else {
+                //alert(this.respons);
+            }
+        }
+        console.log(data);
+        console.log(JSON.stringify(data));
+        req.send(JSON.stringify(data));
+
+    }
+</script>
